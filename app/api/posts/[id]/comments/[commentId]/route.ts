@@ -4,15 +4,9 @@ import Post, { IPost } from '@/models/Post'
 
 import * as Sentry from "@sentry/nextjs"
 
-interface Params {
-    params: {
-        id: string
-        commentId: string
-    }
-}
 
 // Edycja komentarza
-export async function PUT(request: NextRequest, { params }: Params): Promise<NextResponse> {
+export async function PUT(request: NextRequest, { params }: { params: Promise<{ id: string; commentId: string }> }): Promise<NextResponse> {
     try {
         await dbConnect()
         const { content } = await request.json()
@@ -60,7 +54,7 @@ export async function PUT(request: NextRequest, { params }: Params): Promise<Nex
 }
 
 // Usuwanie komentarza
-export async function DELETE(request: NextRequest, { params }: Params): Promise<NextResponse> {
+export async function DELETE(request: NextRequest, { params }: { params: Promise<{ id: string; commentId: string }> }): Promise<NextResponse> {
     try {
         await dbConnect()
         const { id, commentId } = await params
@@ -98,7 +92,7 @@ export async function DELETE(request: NextRequest, { params }: Params): Promise<
 }
 
 // Dodawanie polubienia do komentarza
-export async function PATCH(request: NextRequest, { params }: Params): Promise<NextResponse> {
+export async function PATCH(request: NextRequest, { params }: { params: Promise<{ id: string; commentId: string }> }): Promise<NextResponse> {
     try {
         await dbConnect()
         const { id, commentId } = await params
