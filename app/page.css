@@ -1,0 +1,247 @@
+
+
+
+
+
+/* section z godzinami lokalnymch baz kosmicznych */
+	.time-section {
+		display: flex;
+		background: var(--section-bg);
+		border-radius: 12px;
+		padding: 20px;
+		margin: 20px 0;
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+	}
+	.time-section h3 {
+		flex: 1;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding-right: 20px;
+		border-right: 1px solid var(--border-color);
+	}
+	.time-section div {
+		flex: 3;
+		padding-left: 20px;
+	}
+	.time-item {
+		display: flex;
+		justify-content: space-between;
+		padding: 15px 0;
+		font-size: 18px;
+		border-bottom: 1px dashed var(--border-color);
+	}
+	.time-item:last-child {
+		border-bottom: none;
+	}
+
+
+
+
+
+
+
+
+
+
+
+/* section z najbliższym odlotem  */
+	.next-launch {
+		background: var(--section-bg);
+		border-radius: 12px;
+		padding: 25px;
+		margin: 30px 0;
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+	}
+	.launch-content {
+		display: flex;
+		gap: 30px;
+		margin-top: 15px;
+	}
+	.rocket-image {
+		width: 400px;
+		height: auto;
+		border-radius: 8px;
+		object-fit: cover;
+		border: 2px solid var(--secondary-color);
+	}
+	.launch-details {
+		flex: 1;
+	}
+	.launch-details p {
+		margin-bottom: 12px;
+		font-size: 1.1rem;
+		padding: 8px 0;
+		border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+	}
+
+	.weather-info {
+		margin-top: 20px;
+		padding: 15px;
+		font-size: 18px;
+		border-radius: 8px;
+	}
+
+	.weather-error {
+		font-weight: bold;
+	}
+
+
+
+
+
+
+
+
+
+/* Sekcja Następne odloty */
+	.upcoming {
+		background: var(--section-bg);
+		border-radius: 12px;
+		padding: 25px;
+		margin: 30px 0;
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+	}
+	.upcoming-list {
+		display: flex;
+		flex-direction: column;
+		gap: 30px;
+	}
+	.upcoming-item {
+		background: var(--background-color);
+		border-radius: 8px;
+		padding: 15px;
+	}
+	.launch-info {
+		display: flex;
+		margin-bottom: 12px;
+		align-items: flex-start;
+	}
+	.info-label {
+		font-weight: 600;
+		color: var(--text-color);
+		min-width: 120px;
+		margin-right: 50px;
+	}
+	.rocket-name {
+		font-weight: 600;
+		color: var(--primary-color);
+	}
+	.launch-date {
+		color: var(--highlight-color);
+	}
+	.launch-site {
+		font-style: italic;
+		color: #ccc;
+	}
+
+
+
+
+
+
+
+
+
+
+/* zdjęcie z kosmosu */
+	.today-image {
+		margin: 100px 0;
+	}
+	.space-image {
+		border-radius: 12px;
+		width: 100%;
+		height: 500px;
+		object-fit: cover;
+		display: block;
+	}
+
+
+
+	
+/* ISS */
+	.iss {
+		background: var(--section-bg);
+		border-radius: 12px;
+		padding: 25px;
+		margin: 30px 0 50px;
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+	}
+	.iss ul{
+		margin-left: 40px;
+	}
+
+
+
+
+
+
+/* cala responsywność */
+@media only screen and (max-width: 1024px) {
+	.app {
+		padding: 0 15px;
+	}
+	
+	h3 {
+		font-size: 1.5rem;
+	}
+}
+
+@media only screen and (max-width: 768px) {
+	.launch-content {
+		flex-direction: column;
+	}
+	
+	.rocket-image {
+		width: 100%;
+		max-width: 400px;
+		margin: 0 auto;
+	}
+	
+	.launch-details p {
+		font-size: 1rem;
+	}
+	
+	span {
+		width: 120px;
+	}
+	
+	.info-label {
+		min-width: 100px;
+		margin-right: 20px;
+	}
+	
+	.today-image {
+		margin: 50px 0;
+	}
+	
+	.space-image {
+		height: 300px;
+	}
+}
+
+@media only screen and (max-width: 480px) {
+	h3 {
+		font-size: 1.3rem;
+	}
+	
+	.next-launch,
+	.upcoming,
+	.iss {
+		padding: 15px;
+	}
+	
+	.launch-info {
+		flex-direction: column;
+		gap: 5px;
+	}
+	
+	.info-label {
+		margin-right: 0;
+		margin-bottom: 5px;
+	}
+	
+	.iss ul {
+		margin-left: 20px;
+	}
+}

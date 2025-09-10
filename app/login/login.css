@@ -1,0 +1,87 @@
+
+
+/* kontener */
+    .auth-container {
+        max-width: 500px;
+        margin: 50px auto;
+        background: var(--section-bg);
+        border-radius: 12px;
+        padding: 30px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+
+
+/* nagłówek */
+    .auth-header {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+
+
+/* Formularz */
+    .auth-form {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+    .form-group {
+        display: flex;
+        flex-direction: column;
+    }
+    .form-group label {
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: var(--text-color);
+    }
+    .form-group input {
+        padding: 12px;
+        border-radius: 8px;
+        border: 1px solid var(--border-color);
+        background: var(--background-color);
+        color: var(--text-color);
+        font-family: "Space Grotesk", sans-serif;
+    }
+
+
+
+/* Przycisk */
+    .auth-button {
+        padding: 12px;
+        border-radius: 8px;
+        border: none;
+        background: #4a6fa5;
+        color: white;
+        font-family: "Space Grotesk", sans-serif;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background 0.3s;
+    }
+    .auth-button:hover {
+        background: #3a5a80;
+    }
+
+
+
+
+
+/* Przełącznik trybu */
+    .auth-switch {
+        text-align: center;
+        margin-top: 20px;
+    }
+    .auth-switch span {
+        color: #4a6fa5;
+        cursor: pointer;
+        text-decoration: underline;
+        width: auto;
+    }
+
+/* Responsywność */
+    @media only screen and (max-width: 768px) {
+        .auth-container {
+            margin: 30px 15px;
+            padding: 20px;
+        }
+    }

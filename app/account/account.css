@@ -1,0 +1,98 @@
+
+
+/* kontener */
+    .account-container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px 0;
+    }
+
+
+
+
+/* Nagłówek profilu */
+    .profile-header {
+        text-align: center;
+        margin-bottom: 40px;
+        background: var(--section-bg);
+        border-radius: 12px;
+        padding: 30px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+    .profile-avatar {
+        margin-bottom: 20px;
+    }
+    .profile-header h2 {
+        color: var(--text-color);
+        margin-bottom: 10px;
+    }
+    .profile-header p {
+        color: var(--secondary-color);
+        margin: 0;
+    }
+
+
+
+
+
+/* Sekcje informacyjne */
+    .account-info {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        margin-bottom: 40px;
+    }
+    .info-section {
+        background: var(--section-bg);
+        border-radius: 12px;
+        padding: 25px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+    .info-section h4 {
+        margin: 0 0 20px;
+        color: var(--text-color);
+        padding-bottom: 10px;
+        border-bottom: 1px solid var(--border-color);
+    }
+    .info-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 12px 0;
+        border-bottom: 1px dashed var(--border-color);
+    }
+    .info-item:last-child {
+        border-bottom: none;
+    }
+    .info-item span:first-child {
+        font-weight: 600;
+        color: var(--text-color);
+        width: auto;
+    }
+    .info-item span:last-child {
+        color: var(--secondary-color);
+    }
+
+
+
+
+
+
+
+
+/* responsywność */
+@media only screen and (max-width: 768px) {
+    .account-container {
+        padding: 0 15px;
+    }
+    .info-item {
+        flex-direction: column;
+        gap: 5px;
+    }
+    .account-actions {
+        flex-direction: column;
+        gap: 15px;
+    }
+    .logout-btn, .delete-btn {
+        width: 100%;
+    }
+}

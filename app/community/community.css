@@ -1,0 +1,349 @@
+
+
+
+
+/* kontener */
+    .community-container {
+        padding: 20px 0;
+    }
+
+
+
+/* Panel kontrolny */
+    .community-controls {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 15px;
+        margin-bottom: 30px;
+        background: var(--section-bg);
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+
+
+
+/* Filtry tagów */
+    .tags-filter {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    .tag {
+        padding: 6px 12px;
+        border-radius: 20px;
+        border: 1px solid var(--border-color);
+        background: var(--background-color);
+        color: var(--text-color);
+        cursor: pointer;
+        font-size: 14px;
+    }
+    .tag.active {
+        background: #4a6fa5;
+        border-color: #4a6fa5;
+    }
+
+
+
+
+
+/* Przyciski akcji */
+    .community-actions {
+        display: flex;
+        gap: 15px;
+        align-items: center;
+    }
+    .sort-select {
+        padding: 8px 12px;
+        border-radius: 8px;
+        border: 1px solid var(--border-color);
+        background: var(--background-color);
+        color: var(--text-color);
+        font-family: "Space Grotesk", sans-serif;
+    }
+    .new-post-button {
+        padding: 8px 16px;
+        border-radius: 8px;
+        border: none;
+        background: #4a6fa5;
+        color: white;
+        font-family: "Space Grotesk", sans-serif;
+        cursor: pointer;
+    }
+
+
+
+
+
+
+/* Formularz nowego posta */
+    .new-post-form {
+        background: var(--section-bg);
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 30px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+    .new-post-form h4 {
+        margin-bottom: 15px;
+        color: var(--text-color);
+    }
+    .new-post-form .form-group {
+        margin-bottom: 15px;
+    }
+    .new-post-form input,
+    .new-post-form textarea {
+        width: 100%;
+        padding: 10px;
+        border-radius: 8px;
+        border: 1px solid var(--border-color);
+        background: var(--background-color);
+        color: var(--text-color);
+        font-family: "Space Grotesk", sans-serif;
+    }
+    .form-actions {
+        display: flex;
+        gap: 10px;
+        justify-content: flex-end;
+    }
+    .form-actions button {
+        padding: 8px 16px;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+        font-family: "Space Grotesk", sans-serif;
+    }
+    .form-actions button:first-child {
+        background: #4a6fa5;
+        color: white;
+    }
+    .form-actions button:last-child {
+        background: var(--background-color);
+        color: var(--text-color);
+        border: 1px solid var(--border-color);
+    }
+
+
+
+
+
+
+/* Lista postów */
+    .posts-list {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+    .post-item {
+        background: var(--section-bg);
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+    .post-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 15px;
+    }
+    .post-header h4 {
+        color: var(--text-color);
+        margin: 0;
+    }
+    .post-meta {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        font-size: 14px;
+    }
+    .post-meta .author {
+        color: #4a6fa5;
+        width: auto;
+    }
+    .post-meta .date {
+        color: var(--secondary-color);
+        width: auto;
+    }
+    .post-content {
+        margin-bottom: 15px;
+    }
+    .post-tags {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 15px;
+        flex-wrap: wrap;
+    }
+    .post-actions {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 15px;
+    }
+    .post-actions button {
+        padding: 6px 12px;
+        border-radius: 8px;
+        border: 1px solid var(--border-color);
+        background: var(--background-color);
+        color: var(--text-color);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+
+
+
+
+
+
+/* Sekcja komentarzy */
+    .comments-section {
+        border-top: 1px solid var(--border-color);
+        padding-top: 15px;
+    }
+    .comment {
+        background: var(--background-color);
+        border-radius: 8px;
+        padding: 12px;
+        margin-bottom: 10px;
+    }
+    .comment-header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 8px;
+        font-size: 14px;
+    }
+    .comment-header .author {
+        color: #4a6fa5;
+        width: auto;
+    }
+    .comment-header .date {
+        color: var(--secondary-color);
+        width: auto;
+    }
+    .comment p {
+        margin-bottom: 8px;
+        font-size: 15px;
+    }
+
+
+
+
+
+/* Responsywność */
+    @media only screen and (max-width: 768px) {
+        .community-controls {
+            flex-direction: column;
+        }
+        .community-actions {
+            flex-direction: column;
+            align-items: stretch;
+        }
+        .post-header {
+            flex-direction: column;
+        }
+        .post-meta {
+            align-items: flex-start;
+            margin-top: 10px;
+        }
+    }
+
+
+
+
+
+    /* to poniżej jest dodane później */
+
+    /* Dodatkowe style dla ulepszonego interfejsu */
+.post-title-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.post-actions-menu {
+    display: flex;
+    gap: 10px;
+}
+
+.edit-btn, .delete-btn {
+    padding: 4px 8px;
+    font-size: 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.edit-btn {
+    background: #4a6fa5;
+    color: white;
+}
+
+.delete-btn {
+    background: #dc3545;
+    color: white;
+}
+
+.comment-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-top: 8px;
+}
+
+.edit-comment textarea {
+    width: 100%;
+    margin-bottom: 8px;
+}
+
+.edit-actions {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+}
+
+.reply-btn {
+    padding: 4px 8px;
+    font-size: 12px;
+    background: #6c757d;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.add-comment {
+    margin-top: 15px;
+}
+
+.add-comment textarea {
+    width: 100%;
+    margin-bottom: 8px;
+}
+
+.error-message {
+    background: #dc3545;
+    color: white;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+/* Responsywność */
+@media only screen and (max-width: 768px) {
+    .post-title-section {
+        flex-direction: column;
+    }
+    
+    .post-actions-menu {
+        margin-top: 10px;
+    }
+    
+    .comment-actions {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
