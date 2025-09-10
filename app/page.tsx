@@ -37,7 +37,7 @@ import Clock from './components/Clock'
     async function getData() {
         try {
             const baseUrl = process.env.NODE_ENV === 'production' 
-                ? 'https://domenaa.pl' 
+                ? 'https://nextjs-4dkmcjkv0-tayala2272s-projects.vercel.app/' 
                 : 'http://localhost:3000'
 
             const [launchesRes, astronautsRes, apodRes] = await Promise.all([
