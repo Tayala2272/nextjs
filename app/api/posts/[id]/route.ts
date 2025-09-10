@@ -5,9 +5,9 @@ import Post, { IPost } from '@/models/Post'
 import * as Sentry from "@sentry/nextjs"
 
 interface Params {
-    params: {
+    params: Promise<{
         id: string
-    }
+    }>
 }
 
 export async function GET(request: NextRequest, { params }: Params): Promise<NextResponse> {

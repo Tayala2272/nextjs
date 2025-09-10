@@ -6,9 +6,9 @@ import { Types } from 'mongoose'
 import * as Sentry from "@sentry/nextjs"
 
 interface Params {
-    params: {
+    params: Promise<{
         id: string
-    }
+    }>
 }
 
 // Dodawanie nowego komentarza do posta
