@@ -4,13 +4,19 @@ import Post, { IPost } from '@/models/Post'
 
 import * as Sentry from "@sentry/nextjs"
 
+interface Params {
+    params: {
+        id: string
+        commentId: string
+    }
+}
 
 // Edycja komentarza
-export async function PUT(request: NextRequest, { params }: { params: Promise<{ id: string; commentId: string }> }): Promise<NextResponse> {
+export async function PUT(request: NextRequest, { params }: Params): Promise<NextResponse> {
     try {
         await dbConnect()
         const { content } = await request.json()
-        const { id, commentId } = await params
+        const { id, commentId } = params
         const post: IPost | null = await Post.findById(id)
 
         // Sprawdzenie czy post istnieje
@@ -54,10 +60,10 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
 }
 
 // Usuwanie komentarza
-export async function DELETE(request: NextRequest, { params }: { params: Promise<{ id: string; commentId: string }> }): Promise<NextResponse> {
+export async function DELETE(request: NextRequest, { params }: Params): Promise<NextResponse> {
     try {
         await dbConnect()
-        const { id, commentId } = await params
+        const { id, commentId } = params
         const post: IPost | null = await Post.findById(id)
 
         // Sprawdzenie czy post istnieje
@@ -92,10 +98,10 @@ export async function DELETE(request: NextRequest, { params }: { params: Promise
 }
 
 // Dodawanie polubienia do komentarza
-export async function PATCH(request: NextRequest, { params }: { params: Promise<{ id: string; commentId: string }> }): Promise<NextResponse> {
+export async function PATCH(request: NextRequest, { params }: Params): Promise<NextResponse> {
     try {
         await dbConnect()
-        const { id, commentId } = await params
+        const { id, commentId } = params
         const post: IPost | null = await Post.findById(id)
 
         // Sprawdzenie czy post istnieje
