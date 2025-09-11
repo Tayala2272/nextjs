@@ -1,6 +1,5 @@
 
 
-import { NextResponse } from 'next/server'
 import axios from 'axios'
 import moment from 'moment-timezone'
 
@@ -11,22 +10,23 @@ let nasaCache: { data: any; expiry: number } | null = null
 const nasaApiKey = process.env.NASA_API_KEY
 
 
-export async function GET() {
+export async function getApodData() {
     try {
         const now = Date.now()
 
         // sprawdzenie cashe
             if (nasaCache && now < nasaCache.expiry) {
-                return NextResponse.json({ imageUrl: nasaCache.data.url })
+                return { imageUrl: nasaCache.data.url }
             }
 
 
         // env check
             if (!nasaApiKey) {
-                return NextResponse.json(
-                    { error: 'NASA API key not configured' },
-                    { status: 500 }
-                )
+                // sentry log
+                    Sentry.captureException("NASA API key not configured")
+                    await Sentry.flush(2000)
+
+                return { error: 'NASA API key not configured' }
             }
 
         // zapytanie do nasa
@@ -45,17 +45,14 @@ export async function GET() {
 
 
 
-        return NextResponse.json({ imageUrl: response.data.url });
+        return { imageUrl: response.data.url }
     } catch (error) {
         
         // sentry log
             Sentry.captureException(error)
             await Sentry.flush(2000)
 
-        return NextResponse.json(
-            { error: 'Błąd serwera' },
-            { status: 500 }
-        )
+        return { error: 'Błąd serwera' }
     }
 }
 

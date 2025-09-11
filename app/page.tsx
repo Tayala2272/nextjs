@@ -6,6 +6,10 @@ import './page.css'
 import Clock from './components/Clock'
 
 
+import { getLaunchesData } from './lib/launches'
+import { getIssData } from './lib/iss'
+import { getApodData } from './lib/apod'
+
 
 // Interfaces
     interface LaunchData {
@@ -17,8 +21,8 @@ import Clock from './components/Clock'
         launchTimeLocal: string;
         rocketModel: string;
         mission: string;
-        latitude: string;
-        longitude: string;
+        latitude: number | string;
+        longitude: number | string;
         weather?: {
             temperature: number;
             windspeed: number;
@@ -26,46 +30,8 @@ import Clock from './components/Clock'
             weathercode: number;
             time: string;
         }
+        originalNetTime: string;
     }
-
-
-
-
-
-
-// funkcja pobierająca wszystkie dane z API lokalnego
-    async function getData() {
-        try {
-            const baseUrl = process.env.NODE_ENV === 'production' 
-                ? '' 
-                : ''
-
-            const [launchesRes, astronautsRes, apodRes] = await Promise.all([
-                fetch(`${baseUrl}/api/launches`),
-                fetch(`${baseUrl}/api/iss`),
-                fetch(`${baseUrl}/api/apod`)
-            ])
-
-            if (!launchesRes.ok || !astronautsRes.ok || !apodRes.ok) {
-                throw new Error('Failed to fetch data')
-            }
-
-            const launches = await launchesRes.json()
-            const astronauts = await astronautsRes.json()
-            const apod = await apodRes.json()
-
-
-            return {
-                launches,
-                astronauts,
-                apodUrl: apod.imageUrl
-            }
-        } catch (error) {
-            console.error('Error fetching data:', error)
-            throw new Error('Failed to fetch data')
-        }
-    }
-
 
 
 
@@ -77,9 +43,17 @@ import Clock from './components/Clock'
 export default async function App() {
 
 
-    const { launches, astronauts, apodUrl } = await getData()
-    const nextLaunch = launches[0]
-    const upcomingLaunches = launches.slice(1)
+
+    const launches:LaunchData[]|undefined = await getLaunchesData()
+    const astronauts = await getIssData()
+    const apod = await getApodData()
+
+    let nextLaunch
+    let upcomingLaunches
+    if (Array.isArray(launches)){
+        nextLaunch = launches[0]
+        upcomingLaunches = launches.slice(1)
+    }
 
     return (
         <div className="app">
@@ -96,17 +70,17 @@ export default async function App() {
                     <h3>Najbliższy odlot rakiety</h3>
                     <div className="launch-content">
                         <img 
-                            src={nextLaunch.imageUrl} 
-                            alt={nextLaunch.rocketName} 
+                            src={nextLaunch&& nextLaunch.imageUrl} 
+                            alt={nextLaunch ? nextLaunch.rocketName:"Brak danych"} 
                             className="rocket-image"
                         />
                         <div className="launch-details">
-                            <p><span>Rakieta:</span> {nextLaunch.rocketName}</p>
-                            <p><span>Start z:</span> {nextLaunch.launchSite}</p>
-                            <p><span>Czas startu (PL):</span> {nextLaunch.launchTimePL}</p>
-                            <p><span>Czas lokalny:</span> {nextLaunch.launchTimeLocal}</p>
-                            <p><span>Model:</span> {nextLaunch.rocketModel}</p>
-                            <p><span>Misja:</span> {nextLaunch.mission}</p>
+                            <p><span>Rakieta:</span> {nextLaunch ? nextLaunch.rocketName : "Brak danych"}</p>
+                            <p><span>Start z:</span> {nextLaunch ? nextLaunch.launchSite : "Brak danych"}</p>
+                            <p><span>Czas startu (PL):</span> {nextLaunch ? nextLaunch.launchTimePL : "Brak danych"}</p>
+                            <p><span>Czas lokalny:</span> {nextLaunch ? nextLaunch.launchTimeLocal : "Brak danych"}</p>
+                            <p><span>Model:</span> {nextLaunch ? nextLaunch.rocketModel : "Brak danych"}</p>
+                            <p><span>Misja:</span> {nextLaunch ? nextLaunch.mission : "Brak danych"}</p>
                         </div>
                     </div>
 
@@ -118,11 +92,11 @@ export default async function App() {
                     {/* pogoda w miejscu startu */}
                     <div className="weather-info">
                         <h3>Aktualna pogoda w miejscu startu:</h3>
-                        {nextLaunch.weather ? (
+                        {nextLaunch && nextLaunch.weather ? (
                             <>
-                            <p>Temperatura: {nextLaunch.weather.temperature} °C</p>
-                            <p>Prędkość wiatru: {nextLaunch.weather.windspeed} km/h</p>
-                            <p>Kierunek wiatru: {nextLaunch.weather.winddirection}°</p>
+                                <p>Temperatura: {nextLaunch.weather.temperature} °C</p>
+                                <p>Prędkość wiatru: {nextLaunch.weather.windspeed} km/h</p>
+                                <p>Kierunek wiatru: {nextLaunch.weather.winddirection}°</p>
                             </>
                         ) : (
                             <p>Brak danych pogodowych</p>
@@ -139,7 +113,7 @@ export default async function App() {
                 <section className="upcoming">
                     <h3>Następne odloty</h3>
                     <div className="upcoming-list">
-                        {upcomingLaunches.map((launch: LaunchData) => (
+                        {upcomingLaunches ? upcomingLaunches.map((launch: LaunchData) => (
                             <div key={launch.id} className="upcoming-item">
                                 <div className="launch-info">
                                     <div className="info-label">Rakieta:</div>
@@ -156,7 +130,7 @@ export default async function App() {
                                     <div className="launch-site">{launch.launchSite}</div>
                                 </div>
                             </div>
-                        ))}
+                        )): "Brak danych o przyszłych odlotach"}
                     </div>
                 </section>
 
@@ -170,7 +144,7 @@ export default async function App() {
                     <h3>Dzisiejsze zdjęcie z kosmosu</h3>
                     <p>Nasa każdego dnia publikuje jedno zdjęcie z kosmosu i udostępnia to zdjęcie ludzią na całym świecie</p>
                     <img 
-                        src={apodUrl}
+                        src={apod.imageUrl}
                         alt="zdjęcie kosmosu" 
                         className="space-image"
                     />

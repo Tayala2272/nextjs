@@ -1,4 +1,5 @@
-import { NextResponse } from 'next/server'
+
+
 import axios from 'axios'
 import moment from 'moment'
 
@@ -114,7 +115,7 @@ import * as Sentry from "@sentry/nextjs"
 
 
 
-export async function GET() {
+export async function getLaunchesData() {
     try {
         const now = Date.now()
         let shouldRefreshCache = true
@@ -126,7 +127,7 @@ export async function GET() {
 
         // jeśli cashe == ok, no to wysyłamy cashe
             if (launchesCache && !shouldRefreshCache) {
-                return NextResponse.json(launchesCache.data)
+                return launchesCache.data
             }
 
 
@@ -136,7 +137,11 @@ export async function GET() {
             const launches: Launch[] = response.data.results || []
 
             if (launches.length === 0) {
-                return NextResponse.json({ error: 'Brak danych o startach' }, { status: 404 })
+                // sentry log
+                    Sentry.captureException("Brak danych o startach rakiet")
+                    await Sentry.flush(2000)
+
+                return;
             }
 
 
@@ -203,7 +208,7 @@ export async function GET() {
 
 
         // res
-            return NextResponse.json(processedLaunches)
+            return processedLaunches
 
 
 
@@ -213,7 +218,7 @@ export async function GET() {
             Sentry.captureException(error)
             await Sentry.flush(2000)
             
-        return NextResponse.json({ error: 'Błąd serwera' }, { status: 500 })
+        return;
     }
 }
 

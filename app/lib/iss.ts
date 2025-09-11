@@ -1,7 +1,6 @@
 
 
 
-import { NextResponse } from 'next/server'
 import axios from 'axios'
 import moment from 'moment'
 
@@ -11,12 +10,12 @@ import * as Sentry from "@sentry/nextjs"
 let astronautsCache: { data: string[]; expiry: number } | null = null
 
 
-export async function GET() {
+export async function getIssData() {
     try {
         // sprawdzanie czy cashe jest nadal ok
             const now = Date.now()
             if (astronautsCache && now < astronautsCache.expiry) {
-                return NextResponse.json(astronautsCache.data)
+                return astronautsCache.data
             }
 
         
@@ -37,7 +36,7 @@ export async function GET() {
             Sentry.logger.info("Zaaktualizowano cashe ISS")
 
 
-        return NextResponse.json(astronauts)
+        return astronauts
 
         
     } catch (error) {
@@ -46,10 +45,7 @@ export async function GET() {
             Sentry.captureException(error)
             await Sentry.flush(2000)
             
-        return NextResponse.json(
-            { error: 'Błąd serwera' },
-            { status: 500 }
-        )
+        return { error: 'Błąd serwera' }
     }
 }
 
